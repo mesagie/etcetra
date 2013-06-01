@@ -20,12 +20,10 @@ class SimpleGraph(triples: Iterable[(String, String, String)] = Nil) extends Ser
 	}
 
 	def addEdge(src: String, prd: String, tgt: String) {
-		val (srcId, prdId, tgtId) = (vertices getOrElseUpdate src, predicates getOrElseUpdate prd, vertices getOrElseUpdate tgt)
-
 		outEdges
-		.getOrElseUpdate(srcId, mutable.Map.empty)
-		.getOrElseUpdate(prdId, ListBuffer.empty)
-		.append(tgtId)
+		.getOrElseUpdate(vertices getOrElseUpdate src, mutable.Map.empty)
+		.getOrElseUpdate(predicates getOrElseUpdate prd, ListBuffer.empty)
+		.append(vertices getOrElseUpdate tgt)
 	}
 
 	def save(filename: String) {
