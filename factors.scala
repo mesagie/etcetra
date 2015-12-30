@@ -1,16 +1,12 @@
 object primeFactors{
-  def generate(n:Int) = {
-    var x = n    
-    var factors = List[Int]()
-    if(x > 1){
-      for(i <- 2 to n){
-        while(x % i == 0 && x/i > 1){
-          factors += i
-          x/=i
-        }
+  def factorize(x: Int): List[Int] = {
+  def foo(x: Int, a: Int): List[Int] = {
+    (a*a < x, x % a) match {
+        case (true, 0) => a :: foo(x/a, a)
+        case (true, _) => foo(x, a+1)
+        case (false, _) => List(x)
       }
-     factors += x
     }
-    factors
+    foo(x, 2)
   }
 }
